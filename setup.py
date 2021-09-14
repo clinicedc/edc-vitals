@@ -14,13 +14,13 @@ with open(join(dirname(__file__), "VERSION")) as f:
 os.chdir(normpath(join(abspath(__file__), os.pardir)))
 
 setup(
-    name="edc_vitals",
+    name="edc-vitals",
     version=VERSION,
     author="Erik van Widenfelt",
     author_email="ew2789@gmail.com",
     packages=find_packages(),
     include_package_data=True,
-    url="https://github.com/clinicedc/edc_vitals",
+    url="https://github.com/clinicedc/edc-vitals",
     license="GPL license, see LICENSE",
     description="Classes for BP, weight, etc",
     long_description=README,
