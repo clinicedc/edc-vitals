@@ -29,3 +29,13 @@ def get_sys_upper():
 
 def get_dia_upper():
     return getattr(settings, "EDC_VITALS_DIA_UPPER", 110)
+
+
+def has_fever_gte_g3(temperature=None):
+    if temperature is not None:
+        return temperature >= get_min_g3_fever()
+    return None
+
+
+def get_min_g3_fever():
+    return getattr(settings, "EDC_VITALS_MIN_G3_FEVER", 39.3)
