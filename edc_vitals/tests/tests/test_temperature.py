@@ -1,7 +1,12 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from edc_vitals.utils import get_min_g3_fever, has_fever_gte_g3
+from edc_vitals.utils import (
+    get_g3_fever_lower,
+    get_g4_fever_lower,
+    has_g3_fever,
+    has_g4_fever,
+)
 
 from ..models import Temperature
 
@@ -45,15 +50,37 @@ class TestTemperature(TestCase):
                     str(cm.exception.error_dict.get("temperature")),
                 )
 
-    def test_has_fever_gte_g3(self):
-        self.assertIsNone(has_fever_gte_g3())
+    def test_has_fever_passed_none_returns_none(self):
+        self.assertIsNone(has_g3_fever())
+        self.assertIsNone(has_g4_fever())
 
-        self.assertFalse(has_fever_gte_g3(temperature=37.5))
-        self.assertFalse(has_fever_gte_g3(temperature=39.2))
+    def test_has_g3_fever_returns_false_if_temp_lt_g3(self):
+        for temperature in [36, 37, 37.5, 38, 38.6, 39.2]:
+            with self.subTest(temperature=temperature):
+                self.assertFalse(has_g3_fever(temperature=temperature))
 
-        self.assertTrue(has_fever_gte_g3(temperature=39.3))
-        self.assertTrue(has_fever_gte_g3(temperature=40))
-        self.assertTrue(has_fever_gte_g3(temperature=45))
+    def test_has_g3_fever_returns_true_if_temp_g3(self):
+        for temperature in [39.3, 39.5, 39.9]:
+            with self.subTest(temperature=temperature):
+                self.assertTrue(has_g3_fever(temperature=temperature))
 
-    def test_min_g3_fever(self):
-        self.assertEquals(get_min_g3_fever(), 39.3)
+    def test_has_g3_fever_returns_false_if_temp_gt_g3(self):
+        for temperature in [40, 40.1, 41, 45, 50]:
+            with self.subTest(temperature=temperature):
+                self.assertFalse(has_g3_fever(temperature=temperature))
+
+    def test_has_g4_fever_returns_false_if_temp_lt_g4(self):
+        for temperature in [36, 39.2, 39.3, 39.5, 39.9]:
+            with self.subTest(temperature=temperature):
+                self.assertFalse(has_g4_fever(temperature=temperature))
+
+    def test_has_g4_fever_returns_true_if_temp_g4(self):
+        for temperature in [40, 40.1, 41, 45, 50]:
+            with self.subTest(temperature=temperature):
+                self.assertTrue(has_g4_fever(temperature=temperature))
+
+    def test_get_g3_fever_lower(self):
+        self.assertEquals(get_g3_fever_lower(), 39.3)
+
+    def test_get_g4_fever_lower(self):
+        self.assertEquals(get_g4_fever_lower(), 40.0)

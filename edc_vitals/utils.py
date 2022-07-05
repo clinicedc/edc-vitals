@@ -31,11 +31,21 @@ def get_dia_upper():
     return getattr(settings, "EDC_VITALS_DIA_UPPER", 110)
 
 
-def has_fever_gte_g3(temperature=None):
+def has_g3_fever(temperature=None):
     if temperature is not None:
-        return temperature >= get_min_g3_fever()
+        return get_g3_fever_lower() <= temperature < get_g4_fever_lower()
     return None
 
 
-def get_min_g3_fever():
-    return getattr(settings, "EDC_VITALS_MIN_G3_FEVER", 39.3)
+def has_g4_fever(temperature=None):
+    if temperature is not None:
+        return temperature >= get_g4_fever_lower()
+    return None
+
+
+def get_g3_fever_lower():
+    return getattr(settings, "EDC_VITALS_G3_FEVER_LOWER", 39.3)
+
+
+def get_g4_fever_lower():
+    return getattr(settings, "EDC_VITALS_G4_FEVER_LOWER", 40.0)
