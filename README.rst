@@ -4,7 +4,7 @@
 edc-vitals
 ----------
 
-Classes for BP, weight, temperature etc
+Classes for BP, weight, heart rate, respiratory rate, temperature etc
 
 
 Settings:
