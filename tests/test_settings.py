@@ -12,6 +12,7 @@ project_settings = DefaultTestSettings(
     BASE_DIR=base_dir,
     APP_NAME=app_name,
     ETC_DIR=base_dir / app_name / "tests" / "etc",
+    DJANGO_REVISION_IGNORE_WORKING_DIR=True,
     SILENCED_SYSTEM_CHECKS=[
         "sites.E101",
         "edc_navbar.E002",
