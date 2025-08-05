@@ -1,5 +1,5 @@
 
-|pypi| |actions| |codecov| |downloads|
+|pypi| |actions| |codecov| |downloads| |clinicedc|
 
 edc-vitals
 ----------
@@ -31,3 +31,7 @@ Settings:
 
 .. |downloads| image:: https://pepy.tech/badge/edc-vitals
    :target: https://pepy.tech/project/edc-vitals
+
+.. |clinicedc| image:: https://img.shields.io/badge/framework-Clinic_EDC-green
+   :alt:Made with clinicedc
+   :target: https://github.com/clinicedc
